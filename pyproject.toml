@@ -2,3 +2,14 @@
 line-length = 119
 skip-string-normalization = 1
 target-version = ['py38']
+
+[tool.coverage.run]
+branch = true
+command_line = 'manage.py test'
+source = ['./']
+omit = ['manage.py', 'config/*']
+
+[tool.coverage.report]
+precision = 2
+skip_covered = true
+fail_under = 75

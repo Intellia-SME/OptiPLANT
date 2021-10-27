@@ -5,4 +5,5 @@ flake8==4.0.1
 black==21.9b0
 bandit==1.7.0
 safety==1.10.3
+coverage==6.0.2
 pre-commit==2.15.0
