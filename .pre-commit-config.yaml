@@ -1,0 +1,30 @@
+default_language_version: 
+  python: python3.8
+repos:
+-   repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+    -   id: flake8
+        stages: [commit]
+
+-   repo: https://github.com/psf/black
+    rev: 21.9b0
+    hooks:
+    -   id: black
+        stages: [commit]
+
+-   repo: local
+    hooks:
+    - id: bandit
+      name: bandit
+      entry: bandit
+      language: system
+      stages: [commit]
+
+    - id: safety
+      entry: safety check
+      name: safety
+      language: system
+      pass_filenames: false
+      stages: [commit]
+    
