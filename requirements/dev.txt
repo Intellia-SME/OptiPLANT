@@ -1,1 +1,3 @@
 -r ./base.txt
+
+pipdeptree==2.2.0
