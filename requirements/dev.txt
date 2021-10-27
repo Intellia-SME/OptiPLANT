@@ -1,3 +1,4 @@
 -r ./base.txt
 
 pipdeptree==2.2.0
+flake8==4.0.1
