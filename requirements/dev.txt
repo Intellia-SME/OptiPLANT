@@ -2,3 +2,4 @@
 
 pipdeptree==2.2.0
 flake8==4.0.1
+black==21.9b0
