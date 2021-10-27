@@ -7,7 +7,7 @@ target-version = ['py38']
 branch = true
 command_line = 'manage.py test'
 source = ['./']
-omit = ['manage.py', 'config/*']
+omit = ['config/*'] #TODO 'manage.py'
 
 [tool.coverage.report]
 precision = 2

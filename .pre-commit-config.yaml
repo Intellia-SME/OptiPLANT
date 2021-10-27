@@ -27,4 +27,11 @@ repos:
       language: system
       pass_filenames: false
       stages: [commit]
-    
+
+    - id: coverage
+      entry: coverage report
+      name: coverage
+      language: system
+      pass_filenames: false
+      stages: [push]
+
