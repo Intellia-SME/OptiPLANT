@@ -3,6 +3,8 @@ from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
+from .managers import CustomUserManager
+
 
 class CustomUser(AbstractUser):
     username_validator = ASCIIUsernameValidator()
@@ -13,6 +15,8 @@ class CustomUser(AbstractUser):
             "unique": _("A user with that email address already exists."),
         },
     )
+
+    objects = CustomUserManager()
 
     def clean(self):
         super().clean()
