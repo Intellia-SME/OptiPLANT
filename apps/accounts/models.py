@@ -21,4 +21,9 @@ class CustomUser(AbstractUser):
     def clean(self):
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)
+        self.email = self.email.lower()
         self.username = self.username.lower()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
