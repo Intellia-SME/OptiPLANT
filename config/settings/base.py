@@ -88,6 +88,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_REDIRECT_URL = 'accounts:login'  # TODO: change to homepage
+LOGIN_REDIRECT_URL = 'accounts:profile'
 
 LOGIN_URL = 'accounts:login'
