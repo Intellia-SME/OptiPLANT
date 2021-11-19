@@ -14,7 +14,7 @@ class LoginViewTests(TestCase):
     def setUpTestData(cls):
         cls.url = '/accounts/login/'
 
-    def test_project_url_resolves_to_view(self):
+    def test_login_url_resolves_to_view(self):
         found = resolve(self.url)
         self.assertEqual(found.func.__name__, LoginView.as_view().__name__)
 
@@ -31,14 +31,14 @@ class LoginViewTests(TestCase):
             username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
         )
         self.client.force_login(user)
-        response = self.client.get('/accounts/login/')
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/profile/')
 
-    def test_successful_login_redirects_to_homepage(self):
+    def test_successful_login_redirects_to_profile_page(self):
         UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
         response = self.client.post(
-            '/accounts/login/',
+            self.url,
             data={
                 'username': 'me',
                 'password': os.environ['TEST_USER_PASS'],
@@ -50,7 +50,7 @@ class LoginViewTests(TestCase):
     def test_successful_login_username_case_insensitive(self):
         UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
         response = self.client.post(
-            '/accounts/login/',
+            self.url,
             data={
                 'username': 'ME',
                 'password': os.environ['TEST_USER_PASS'],
@@ -61,7 +61,7 @@ class LoginViewTests(TestCase):
     def test_unsuccessful_login_message(self):
         UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
         response = self.client.post(
-            '/accounts/login/',
+            self.url,
             data={
                 'username': 'Wrong_username',
                 'password': os.environ['TEST_USER_PASS'],
