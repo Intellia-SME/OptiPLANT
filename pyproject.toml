@@ -11,10 +11,11 @@ multi_line_output = 3
 branch = true
 command_line = 'manage.py test'
 source = ['./']
-omit = ['config/*'] #TODO 'manage.py'
+omit = ['config/*', 'manage.py', '*tests*', 'apps/accounts/views.py']
 
 [tool.coverage.report]
 precision = 2
 skip_covered = true
 show_missing = true
 fail_under = 75
+omit = ['config/*', 'manage.py', '*tests*', 'apps/accounts/views.py']
