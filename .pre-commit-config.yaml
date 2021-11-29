@@ -13,6 +13,12 @@ repos:
     -   id: black
         stages: [commit]
 
+-   repo: https://github.com/pycqa/isort
+    rev: 5.6.4
+    hooks:
+    -   id: isort
+        stages: [commit]
+
 -   repo: local
     hooks:
     - id: bandit

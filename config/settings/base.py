@@ -1,6 +1,6 @@
 import os
-
 from pathlib import Path
+
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -89,3 +89,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 CUSTOM_LOGOUT_REDIRECT_URL = '/'
+
+LOGIN_REDIRECT_URL = 'accounts:profile'
+
+LOGIN_URL = 'accounts:login'
