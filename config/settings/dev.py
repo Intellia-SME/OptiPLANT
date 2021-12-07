@@ -14,3 +14,5 @@ DATABASES = {
         'PORT': get_env_variable('DB_PORT'),
     }
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
