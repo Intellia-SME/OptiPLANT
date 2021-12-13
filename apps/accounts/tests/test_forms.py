@@ -9,7 +9,7 @@ UserModel = get_user_model()
 
 
 class SignupFormTest(TestCase):
-    def test_valid_form_creates_project(self):
+    def test_valid_form_creates_user(self):
         form = SignupForm(
             data={
                 'username': 'another',

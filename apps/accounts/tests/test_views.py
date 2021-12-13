@@ -143,6 +143,7 @@ class SignupViewTests(TestCase):
         self.assertRedirects(response, '/accounts/profile/')
 
     def test_successful_signup_authenticates_user(self):
+        self.assertFalse(auth.get_user(self.client).is_authenticated)
         self.client.post(
             self.url,
             data={
