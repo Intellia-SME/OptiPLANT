@@ -9,7 +9,7 @@ multi_line_output = 3
 
 [tool.coverage.run]
 branch = true
-command_line = 'manage.py test'
+command_line = 'manage.py test --parallel'
 source = ['./']
 omit = ['config/*', 'manage.py', '*tests*', 'apps/accounts/views.py']
 
