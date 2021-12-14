@@ -1,0 +1,5 @@
+.optiplant-bg-login-image {
+    background: url(/static/img/login-image.jpg);
+    background-position: center;
+    background-size: cover;
+}
