@@ -1,14 +1,60 @@
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-        {{ field.label_tag }}
-        <br>
-        {{ field }}
-        {% for error in field.errors %}
-            <p>{{ error }}</p>
-        {% endfor %}
-    </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block optiplant-bg-login-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                        </div>
+                        {% if form.errors %}
+                            <div class="text-danger">
+                                {% for key,value in form.errors.items %}
+                                    <p>{{ value }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <form class="user" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user"
+                                    name="username" maxlength="150" autofocus="" required="" id="id_username"
+                                    placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-user"
+                                    name="email" maxlength="254" required="" id="id_email"
+                                    placeholder="Email Address">
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="password" class="form-control form-control-user"
+                                        name="password1" autocomplete="new-password" required="" id="id_password1" aria-autocomplete="list"
+                                        placeholder="Password">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control form-control-user"
+                                        name="password2" autocomplete="new-password" required="" id="id_password2"
+                                        placeholder="Repeat Password">
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account"></input>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="{% url 'accounts:password_reset' %}">Forgot Password?</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="small" href="{% url 'accounts:login' %}">Already have an account? Login!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
