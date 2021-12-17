@@ -1,7 +1,7 @@
 {% load static %}
 
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
         <div class="sidebar-brand-icon rotate-n-15">
             <img style="width: 25px;" src="{% static 'img/optiplant.ico' %}"/>
         </div>
@@ -10,7 +10,7 @@
 
     <hr class="sidebar-divider my-0">
     <li class="nav-item {% if active == 'dashboard' %} active {% endif %}"">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{% url 'home' %}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>

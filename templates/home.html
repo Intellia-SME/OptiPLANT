@@ -1,0 +1,14 @@
+{% extends 'base_site.html' %}
+
+{% block sidebar_wrapper %}
+    {% with active_page='dashboard' %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock sidebar_wrapper %}
+
+{% block content %}
+    {% with page_title='Dashboard' %}
+        {{ block.super }}
+    {% endwith %}
+
+{% endblock content %}
