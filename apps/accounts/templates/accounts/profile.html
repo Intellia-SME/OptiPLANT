@@ -1,1 +1,14 @@
-<h1>Hello</h1>
+{% extends 'base_site.html' %}
+
+{% block sidebar_wrapper %}
+    {% with active_page='profile' %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock sidebar_wrapper %}
+
+{% block content %}
+    {% with page_title='Profile' %}
+        {{ block.super }}
+    {% endwith %}
+
+{% endblock content %}
