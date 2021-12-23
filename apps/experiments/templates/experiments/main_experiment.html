@@ -1,0 +1,17 @@
+{% extends 'base_site.html' %}
+
+{% block sidebar_wrapper %}
+    {% with active_page='main_experiment' %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock sidebar_wrapper %}
+
+{% block content %}
+    {% with page_title=object.name %}
+        {{ block.super }}
+    {% endwith %}
+<div class="container">
+
+
+</div>
+{% endblock content %}
