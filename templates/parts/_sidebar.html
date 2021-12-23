@@ -17,6 +17,16 @@
 
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
+        Actions
+    </div>
+    <li class="nav-item {% if active == 'create_experiment' %} active {% endif %}">
+        <a class="nav-link" href="{% url 'experiments:create_experiment' %}">
+        <i class="fas fa-fw fa-plus"></i>
+        <span>Create new Experiment</span></a>
+    </li>
+
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">
         Personal
     </div>
     <li class="nav-item {% if active == 'profile' %} active {% endif %}">
