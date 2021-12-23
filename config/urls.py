@@ -16,6 +16,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('apps.accounts.urls', namespace='accounts')),
+    path('experiments/', include('apps.experiments.urls', namespace='experiments')),
 ]
 
 

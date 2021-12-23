@@ -1,0 +1,39 @@
+{% extends 'base_site.html' %}
+
+{% block sidebar_wrapper %}
+    {% with active_page='create_experiment' %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock sidebar_wrapper %}
+
+{% block content %}
+    {% with page_title='Create new Experiment' %}
+        {{ block.super }}
+    {% endwith %}
+<div class="container">
+    {% if form.errors %}
+    <div class="text-danger">
+        {% for key,value in form.errors.items %}
+            <p>{{key}} {{ value }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_name">Name</label>
+            <input class="form-control" type="text" name="name" maxlength="200" required="" id="id_name" placeholder="Experiment Name">
+        </div>
+        <div class="mb-0">
+            <label for="id_description">Description</label>
+            <textarea class="form-control" name="description" rows="4" id="id_description"></textarea>
+        </div>
+        <hr>
+        <div class="mb-3">
+            <label for="exampleFormControlSelect1">Dataset</label>
+            <input type="file" name="dataset" required="" id="id_dataset">
+        </div>
+        <input type="submit" class="btn btn-primary btn-user btn-block" value="Create"></input>
+    </form>
+</div>
+{% endblock content %}
