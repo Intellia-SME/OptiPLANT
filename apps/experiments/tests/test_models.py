@@ -48,7 +48,7 @@ class ExperimentModelTest(TestCase):
         self.assertEqual(e.exception.message_dict['experimenter'][0], "This field cannot be null.")
         self.assertEqual(e.exception.message_dict['dataset'][0], "This field cannot be blank.")
 
-    def test_experiment_validation_error_dataset_not_a_csv(self):
+    def test_experiment_validation_error_dataset_bigger_than_1MB(self):
         big_file = SimpleUploadedFile("demo_file.csv", b"Dummy")
         big_file.size = 1048577
         with self.assertRaises(ValidationError) as e:
@@ -56,7 +56,7 @@ class ExperimentModelTest(TestCase):
             self.experiment.save()
         self.assertEqual(e.exception.messages[0], 'demo_file.csv must be less than 1MB')
 
-    def test_experiment_validation_error_dataset_bigger_than_1MB(self):
+    def test_experiment_validation_error_dataset_not_a_csv(self):
         with self.assertRaises(ValidationError) as e:
             self.experiment.dataset = SimpleUploadedFile("demo_file.txt", b"Dummy")
             self.experiment.save()
