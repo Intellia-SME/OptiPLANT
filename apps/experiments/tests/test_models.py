@@ -18,7 +18,7 @@ class ExperimentModelTest(TestCase):
             username="guest", email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
         )
         cls.experiment = Experiment.objects.create(
-            experimenter=cls.user, name="test_demo", dataset=SimpleUploadedFile("best_file_eva.csv", b"Dummy")
+            experimenter=cls.user, name="test_demo", dataset=SimpleUploadedFile("demo_file.csv", b"Dummy")
         )
 
     def test_experiment_inserted(self):
