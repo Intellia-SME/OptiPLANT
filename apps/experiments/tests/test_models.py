@@ -25,6 +25,11 @@ class ExperimentModelTest(TestCase):
             experimenter=cls.user, name="test_demo", dataset=SimpleUploadedFile("demo_file.csv", b"Dummy")
         )
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.experiment.delete()
+        super().tearDownClass()
+
     def test_experiment_inserted(self):
         self.assertEqual(Experiment.objects.count(), 1)
 

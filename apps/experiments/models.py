@@ -27,6 +27,11 @@ class Experiment(Timestampable):
         self.full_clean()
         return super().save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        if self.dataset:
+            self.dataset.delete(save=False)
+        super().delete(*args, **kwargs)
+
     @property
     def training_cost(self):
         if self.dataset.size > MAX_DATASET_SIZE / 2:
