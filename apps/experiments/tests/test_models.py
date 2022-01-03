@@ -1,8 +1,10 @@
 import os
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.models.fields.files import FieldFile
 from django.test import TestCase
 from django.utils import timezone
 
@@ -46,6 +48,11 @@ class ExperimentModelTest(TestCase):
     def test_experiment_cost_is_correctly_calculated_for_small_dataset(self):
         self.assertGreater(MAX_DATASET_SIZE, Experiment.objects.first().dataset.size)
         self.assertEqual(Experiment.objects.first().training_cost, MAX_TRAINING_COST / 2)
+
+    def test_experiment_cost_is_correctly_calculated_for_big_dataset(self):
+        with patch.object(FieldFile, 'size', MAX_DATASET_SIZE):
+            self.assertEqual(MAX_DATASET_SIZE, Experiment.objects.first().dataset.size)
+            self.assertEqual(Experiment.objects.first().training_cost, MAX_TRAINING_COST)
 
     def test_experiment_required_fields(self):
         with self.assertRaises(ValidationError) as e:
