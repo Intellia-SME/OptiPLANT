@@ -6,6 +6,8 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.utils import timezone
 
+from apps.core.constants import MAX_DATASET_SIZE
+
 from ..models import Experiment
 
 UserModel = get_user_model()
@@ -50,7 +52,7 @@ class ExperimentModelTest(TestCase):
 
     def test_experiment_validation_error_dataset_bigger_than_1MB(self):
         big_file = SimpleUploadedFile("demo_file.csv", b"Dummy")
-        big_file.size = 1048577
+        big_file.size = MAX_DATASET_SIZE + 1
         with self.assertRaises(ValidationError) as e:
             self.experiment.dataset = big_file
             self.experiment.save()
