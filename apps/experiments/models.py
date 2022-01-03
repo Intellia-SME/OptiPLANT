@@ -4,7 +4,9 @@ from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
-from .utils import Timestampable, file_directory_path
+from apps.core.models import Timestampable
+
+from .utils import file_directory_path
 from .validators import validate_size
 
 
