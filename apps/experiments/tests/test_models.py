@@ -6,7 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.utils import timezone
 
-from apps.core.constants import MAX_DATASET_SIZE
+from apps.core.constants import MAX_DATASET_SIZE, MAX_TRAINING_COST
 
 from ..models import Experiment
 
@@ -42,6 +42,10 @@ class ExperimentModelTest(TestCase):
             Experiment.objects.first().dataset.url,
             f"/datasets/{self.user.username}/{timezone.now().date().strftime('%Y/%m')}/{self.experiment.id}.csv",
         )
+
+    def test_experiment_cost_is_correctly_calculated_for_small_dataset(self):
+        self.assertGreater(MAX_DATASET_SIZE, Experiment.objects.first().dataset.size)
+        self.assertEqual(Experiment.objects.first().training_cost, MAX_TRAINING_COST / 2)
 
     def test_experiment_required_fields(self):
         with self.assertRaises(ValidationError) as e:

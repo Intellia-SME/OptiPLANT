@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
+from apps.core.constants import MAX_DATASET_SIZE, MAX_TRAINING_COST
 from apps.core.models import Timestampable
 
 from .utils import file_directory_path
@@ -25,3 +26,9 @@ class Experiment(Timestampable):
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)
+
+    @property
+    def training_cost(self):
+        if self.dataset.size > MAX_DATASET_SIZE / 2:
+            return MAX_TRAINING_COST
+        return MAX_TRAINING_COST / 2
