@@ -1,5 +1,3 @@
-import os
-
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase
@@ -20,9 +18,7 @@ class CreateExperimentFormTest(TestCase):
         before calling the is_valid or save form's methods.
         A dummy request (using RequestFactory) is created for that reason.
         """
-        cls.user = UserModel.objects.create(
-            username="guest", email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        cls.user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         cls.request = RequestFactory()
         cls.request.user = cls.user
 
@@ -51,9 +47,7 @@ class CreateExperimentFormTest(TestCase):
         self.assertEqual(Experiment.objects.first().description, "Dummy")
 
     def test_form_creates_an_experiment_that_belongs_to_the_user_of_the_request(self):
-        another_user = UserModel.objects.create(
-            username="guest2", email="guest2@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        another_user = UserModel.objects.create_user(username='guest2', email="guest2@guest.gr")
         form = CreateExperimentForm({"name": "test_demo"}, {"dataset": SimpleUploadedFile("demo_file.csv", b"Dummy")})
         form.request = self.request
         form.save()

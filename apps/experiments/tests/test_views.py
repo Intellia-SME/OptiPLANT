@@ -1,4 +1,3 @@
-import os
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
@@ -20,9 +19,7 @@ UserModel = get_user_model()
 class CreateExperimentViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = UserModel.objects.create(
-            username="guest", email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        cls.user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         cls.url = '/experiments/create/'
 
     def setUp(self):
@@ -111,9 +108,7 @@ class CreateExperimentViewTest(TestCase):
         self.assertEqual(Experiment.objects.first().description, "Dummy")
 
     def test_POST_success_saves_experiment_to_correct_user(self):
-        another_user = UserModel.objects.create(
-            username="guest2", email="guest2@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        another_user = UserModel.objects.create_user(username='guest2', email="guest2@guest.gr")
         self.client.post(
             self.url,
             data={
