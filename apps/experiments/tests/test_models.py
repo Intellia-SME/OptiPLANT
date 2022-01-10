@@ -1,4 +1,3 @@
-import os
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
@@ -18,9 +17,7 @@ UserModel = get_user_model()
 class ExperimentModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = UserModel.objects.create(
-            username="guest", email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        cls.user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         cls.experiment = Experiment.objects.create(
             experimenter=cls.user, name="test_demo", dataset=SimpleUploadedFile("demo_file.csv", b"Dummy")
         )

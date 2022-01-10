@@ -1,5 +1,3 @@
-import os
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory, TestCase
@@ -18,9 +16,7 @@ class RedirectAuthenticatedUserMixinTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.request = RequestFactory().get('/')
-        cls.user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        cls.user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
 
     def test_get_default_redirect_url_is_login_redirect_url(self):
         self.assertEqual(self.DummyView().get_default_redirect_url(), '/accounts/profile/')

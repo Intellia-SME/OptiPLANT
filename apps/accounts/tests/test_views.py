@@ -36,18 +36,14 @@ class LogoutViewTests(TestCase):
         self.assertEqual(response['allow'], 'POST')
 
     def test_successful_logout(self):
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         self.client.force_login(user)
         self.assertTrue(auth.get_user(self.client).is_authenticated)
         self.client.post(self.url)
         self.assertFalse(auth.get_user(self.client).is_authenticated)
 
     def test_logout_redirects_to_homepage(self):
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         self.client.force_login(user)
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 302)
@@ -72,20 +68,18 @@ class LoginViewTests(TestCase):
         self.assertTemplateUsed(response, 'accounts/login.html')
 
     def test_authenticated_user_is_redirected(self):
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         self.client.force_login(user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/profile/')
 
     def test_successful_login_redirects_to_profile_page(self):
-        UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
+        UserModel.objects.create_user(username='guest', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
         response = self.client.post(
             self.url,
             data={
-                'username': 'me',
+                'username': 'guest',
                 'password': os.environ['TEST_USER_PASS'],
             },
         )
@@ -93,18 +87,18 @@ class LoginViewTests(TestCase):
         self.assertRedirects(response, '/accounts/profile/')
 
     def test_successful_login_username_case_insensitive(self):
-        UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
+        UserModel.objects.create_user(username='guest', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
         response = self.client.post(
             self.url,
             data={
-                'username': 'ME',
+                'username': 'GUEST',
                 'password': os.environ['TEST_USER_PASS'],
             },
         )
         self.assertEqual(response.status_code, 302)
 
     def test_unsuccessful_login_message(self):
-        UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
+        UserModel.objects.create_user(username='guest', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
         response = self.client.post(
             self.url,
             data={
@@ -133,9 +127,7 @@ class SignupViewTests(TestCase):
         self.assertTemplateUsed(response, 'accounts/signup.html')
 
     def test_authenticated_user_is_redirected(self):
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         self.client.force_login(user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
@@ -179,7 +171,7 @@ class SignupViewTests(TestCase):
         self.assertEqual(response.context['form'].errors['email'].as_text(), '* This field is required.')
 
     def test_signup_email_is_unique_and_case_insensitive(self):
-        UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
+        UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         response = self.client.post(
             self.url,
             data={
@@ -194,11 +186,11 @@ class SignupViewTests(TestCase):
         )
 
     def test_signup_username_is_case_insensitive(self):
-        UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
+        UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         response = self.client.post(
             self.url,
             data={
-                'username': 'ME',
+                'username': 'GUEST',
                 'email': 'another@guest.gr',
                 'password1': os.environ['TEST_USER_PASS'],
                 'password2': os.environ['TEST_USER_PASS'],
@@ -227,16 +219,14 @@ class PasswordResetViewTests(TestCase):
         self.assertTemplateUsed(response, 'accounts/password_reset.html')
 
     def test_authenticated_user_is_redirected(self):
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         self.client.force_login(user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/profile/')
 
     def test_successful_password_reset_redirects_to_password_reset_done(self):
-        UserModel.objects.create_user(username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS'])
+        UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         response = self.client.post(
             self.url,
             data={
@@ -286,9 +276,7 @@ class PasswordResetDoneViewTests(TestCase):
         self.assertTemplateUsed(response, 'accounts/password_reset_done.html')
 
     def test_authenticated_user_is_redirected(self):
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         self.client.force_login(user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
@@ -308,9 +296,7 @@ class PasswordResetConfirmViewTests(TestCase):
         """
         To test the options you need to make two requests, because the first GET request
         """
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         response1 = self.client.get('/accounts/reset/' + uid + '/' + token + '/')
@@ -322,9 +308,7 @@ class PasswordResetConfirmViewTests(TestCase):
         self.assertTemplateUsed(response, 'accounts/password_reset_confirm.html')
 
     def test_authenticated_user_is_redirected(self):
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         self.client.force_login(user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
@@ -335,9 +319,7 @@ class PasswordResetConfirmViewTests(TestCase):
         To test this view you need to make two requests, one GET request with uid and token, and another
         POST request to the url that you are redirected to from the first request
         """
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         response1 = self.client.get('/accounts/reset/' + uid + '/' + token + '/')
@@ -370,9 +352,7 @@ class PasswordResetCompleteViewTests(TestCase):
         self.assertTemplateUsed(response, 'accounts/password_reset_complete.html')
 
     def test_authenticated_user_is_redirected(self):
-        user = UserModel.objects.create_user(
-            username='me', email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
         self.client.force_login(user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)

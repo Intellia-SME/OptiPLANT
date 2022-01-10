@@ -1,5 +1,3 @@
-import os
-
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import TestCase
@@ -10,9 +8,7 @@ UserModel = get_user_model()
 class CustomUserTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = UserModel.objects.create(
-            username="guest", email="guest@guest.gr", password=os.environ['TEST_USER_PASS']
-        )
+        cls.user = UserModel.objects.create_user(username='guest', email="guest@guest.gr")
 
     def test_username_is_mandatory(self):
         with self.assertRaises(ValidationError) as e:
